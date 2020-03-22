@@ -47,10 +47,12 @@ END
 
 /////////////////////////////////////////////////////////////////////////////
 //
-// PNG
+// Icon
 //
 
-IDB_PNG1                PNG                     "Resource\\dice.png"
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDI_ICON1               ICON                    "Resource\\dice.ico"
 
 #endif    // Russian (Russia) resources
 /////////////////////////////////////////////////////////////////////////////

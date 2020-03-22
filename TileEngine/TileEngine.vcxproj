@@ -176,7 +176,7 @@
     <ResourceCompile Include="TileEngine.rc" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Resource\dice.png" />
+    <Image Include="Resource\dice.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

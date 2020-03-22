@@ -16,7 +16,7 @@ Window::Window(HINSTANCE hInst)
 	wc.cbWndExtra = 0;
 	wc.hInstance = hInst;
 	wc.hIcon = static_cast<HICON>(LoadImage(
-		hInst, MAKEINTRESOURCE(IDB_PNG1),
+		hInst, MAKEINTRESOURCE(IDI_ICON1),
 		IMAGE_ICON, 32, 32, 0
 	));
 	wc.hCursor = nullptr;
@@ -24,7 +24,7 @@ Window::Window(HINSTANCE hInst)
 	wc.lpszMenuName = nullptr;
 	wc.lpszClassName = pClassName;
 	wc.hIconSm = static_cast<HICON>(LoadImage(
-		hInst, MAKEINTRESOURCE(IDB_PNG1),
+		hInst, MAKEINTRESOURCE(IDI_ICON1),
 		IMAGE_ICON, 16, 16, 0
 	));
 	RegisterClassEx(&wc);
