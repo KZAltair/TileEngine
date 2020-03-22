@@ -8,7 +8,7 @@ public:
 	Graphics(class HWNDKey& key);
 	Graphics(const Graphics&) = delete;
 	Graphics& operator=(const Graphics&) = delete;
-	void BeginFrame();
+	void BeginFrame(); //Does the loading of memory
 	void EndFrame();
 	void UpdateWindow();
 	void MakeDIBSection();
