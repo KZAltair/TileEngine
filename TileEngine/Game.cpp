@@ -24,7 +24,7 @@ void Game::UpdateModel()
 void Game::ComposeFrame()
 {
 	//Do the drawing stuff here
-	gfx.DrawBackground(Color(0, 0, 0));
-	gfx.DrawRectangle(10.0f, 10.0f, 30.0f, 30.0f, Color(255, 255, 0));
+	gfx.DrawBackground(Color(0.0f, 0.0f, 0.0f));
+	gfx.DrawRectangle(10.0f, 10.0f, 30.0f, 30.0f, Color(1.0f, 1.0f, 0));
 	
 }
