@@ -1,5 +1,6 @@
 #pragma once
 #include "Graphics.h"
+#include "Tilemap.h"
 
 class Game
 {
@@ -20,4 +21,5 @@ private:
 	/********************************/
 	/*  User Variables              */
 	/********************************/
+	TileMap map;
 };

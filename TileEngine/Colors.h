@@ -22,7 +22,7 @@ public:
 		:
 		dword((r << 16u) | (g << 8u) | b)
 	{}
-	//Working, but not ints, that is bad
+	//TODO: Working, but not ints, that is bad
 	constexpr Color(float r, float g, float b)
 		:
 		dword(((unsigned char)(r * 255.0f) << 16u) | ((unsigned char)(g * 255.0f) << 8u) | (unsigned char)(b * 255.0f))
