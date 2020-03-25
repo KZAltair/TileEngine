@@ -18,9 +18,13 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
+	//Do update logic here
 }
 
 void Game::ComposeFrame()
 {
-	gfx.PutPixel(100, 100, Color(255, 0, 0));
+	//Do the drawing stuff here
+	gfx.DrawBackground(Color(0, 0, 0));
+	gfx.DrawRectangle(10.0f, 10.0f, 30.0f, 30.0f, Color(255, 255, 0));
+	
 }

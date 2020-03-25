@@ -1,6 +1,8 @@
 #pragma once
 #include "WinLib.h"
 #include "Colors.h"
+#include <vector>
+#include "Utility.h"
 
 class Graphics
 {
@@ -13,11 +15,12 @@ public:
 	void UpdateWindow();
 	void MakeDIBSection();
 	void PutPixel(int x, int y, Color c);
+	void DrawRectangle(float MinX, float MinY, float MaxX, float MaxY, Color c);
+	void DrawBackground(Color c);
 	~Graphics();
 private:
 	BITMAPINFO bmpStruct = {0};
-	void* bitmapMemory = nullptr;
-	Color* pSysBuffer = nullptr;
+	std::vector<Color> memory;
 	HDC DeviceContext;
 	HWND hwnd;
 public:
