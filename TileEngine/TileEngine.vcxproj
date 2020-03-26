@@ -162,6 +162,7 @@
     <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="Tilemap.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
@@ -171,6 +172,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="Keyboard.h" />
+    <ClInclude Include="Mouse.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Tilemap.h" />
     <ClInclude Include="Utility.h" />

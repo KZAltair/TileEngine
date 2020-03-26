@@ -3,6 +3,7 @@
 #include "Exception.h"
 #include "Graphics.h"
 #include "Keyboard.h"
+#include "Mouse.h"
 
 // for granting special access to hWnd only for Graphics constructor
 class HWNDKey
@@ -36,7 +37,14 @@ public:
 	~Window();
 	bool ProcessMessage();
 	void ShowMessageBox(const std::wstring& title, const std::wstring& message, UINT type = MB_OK) const;
+	void EnableCursor() noexcept;
+	void DisableCursor() noexcept;
+	bool CursorEnabled() const noexcept;
 private:
+	void ConfineCursor() noexcept;
+	void FreeCursor() noexcept;
+	void ShowCursor() noexcept;
+	void HideCursor() noexcept;
 	static LRESULT CALLBACK _HandleMsgSetup(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 	static LRESULT CALLBACK _HandleMsgThunk(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 	LRESULT HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
@@ -44,8 +52,11 @@ private:
 private:
 	static constexpr LPCTSTR pClassName = L"Engine";
 	HINSTANCE hInst = nullptr;
+	bool cursorEnabled = true;
+	std::vector<BYTE> rawBuffer;
 
 public:
 public:
 	Keyboard kbd;
+	Mouse mouse;
 };
