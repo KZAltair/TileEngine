@@ -22,4 +22,8 @@ private:
 	/*  User Variables              */
 	/********************************/
 	TileMap map;
+	float x;
+	float y;
+	float PosX;
+	float PosY;
 };

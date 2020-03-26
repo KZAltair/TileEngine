@@ -2,6 +2,7 @@
 #include "WinLib.h"
 #include "Exception.h"
 #include "Graphics.h"
+#include "Keyboard.h"
 
 // for granting special access to hWnd only for Graphics constructor
 class HWNDKey
@@ -43,4 +44,8 @@ private:
 private:
 	static constexpr LPCTSTR pClassName = L"Engine";
 	HINSTANCE hInst = nullptr;
+
+public:
+public:
+	Keyboard kbd;
 };

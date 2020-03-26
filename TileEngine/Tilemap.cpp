@@ -26,9 +26,9 @@ TileMap::TileMap(float left, float top, float TileSize)
 void TileMap::Draw(Graphics& gfx)
 {
 	
-	for (int Row = 0; Row < newMap.size(); ++Row)
+	for (int Row = 0; (unsigned int)Row < newMap.size(); ++Row)
 	{
-		for (int Column = 0; Column < newMap[Row].size(); ++Column)
+		for (int Column = 0; (unsigned int)Column < newMap[Row].size(); ++Column)
 		{
 			int TileID = newMap[Row][Column];
 			float tileColor = 1.0f;
