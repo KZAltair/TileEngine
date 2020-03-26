@@ -1,5 +1,6 @@
 #pragma once
 #include "Graphics.h"
+#include "Timer.h"
 #include "Tilemap.h"
 
 class Game
@@ -18,6 +19,7 @@ private:
 private:
 	Window& wnd;
 	Graphics gfx;
+	Timer ft;
 	/********************************/
 	/*  User Variables              */
 	/********************************/
