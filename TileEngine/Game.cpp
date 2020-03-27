@@ -1,5 +1,6 @@
 #include "Window.h"
 #include "Game.h"
+#pragma comment( lib, "winmm.lib" )
 
 Game::Game(Window& wnd)
 	:
@@ -7,6 +8,8 @@ Game::Game(Window& wnd)
 	gfx(wnd),
 	map(0.0f, 0.0f, 50.0f)
 {
+	//Windows scheduler function for waking up thread
+	SleepingIsGranular = (timeBeginPeriod(1) == TIMERR_NOERROR);
 }
 
 void Game::Go()
@@ -21,9 +24,15 @@ void Game::Go()
 	{
 		//Updates are done by no more than 2,5 ms
 		const float dt = std::min(0.00125f, elapsedTime);
-		UpdateModel(dt);
+
 		elapsedTime -= dt;
 		numUpdateCalls++;
+		if (SleepingIsGranular)
+		{
+			Sleep(DWORD(1 / 30 - dt));
+			UpdateModel(dt);
+		}
+		
 	}
 	ComposeFrame();
 	gfx.EndFrame();

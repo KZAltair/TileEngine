@@ -28,4 +28,5 @@ private:
 	float y;
 	float PosX;
 	float PosY;
+	bool SleepingIsGranular;
 };
