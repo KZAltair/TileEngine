@@ -7,7 +7,7 @@ Game::Game(Window& wnd)
 	wnd(wnd),
 	gfx(wnd),
 	map(0.0f, 0.0f, 50.0f),
-	p(150.0f, 150.0f, map)
+	p(80.0f, 100.0f, map)
 {
 	//Windows scheduler function for waking up thread
 	SleepingIsGranular = (timeBeginPeriod(1) == TIMERR_NOERROR);

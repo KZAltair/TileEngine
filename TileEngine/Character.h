@@ -12,8 +12,14 @@ public:
 private:
 	float characterX;
 	float characterY;
-	float velX;
-	float velY;
+	float characterLeft;
+	float characterTop;
+	float newCharacterX = 0.0f;
+	float newCharacterY = 0.0f;
+	int characterTileX = 0;
+	int characterTileY = 0;
+	float velX = 0.0f;
+	float velY = 0.0f;
 	float width;
 	float height;
 	TileMap map;

@@ -1,4 +1,5 @@
 #include "Character.h"
+#include <string>
 
 Character::Character(float x, float y, const TileMap& map)
 	:
@@ -8,17 +9,21 @@ Character::Character(float x, float y, const TileMap& map)
 {
 	width = 0.75f * map.GetSize();
 	height = map.GetSize();
-	characterX = x - 0.5f * width;
-	characterY = x - height;
+	characterLeft = characterX - 0.5f * width;
+	characterTop = characterY - height;
+	characterTileX = (int)((characterX - map.GetMapLeftLoc()) / map.GetSize());
+	characterTileY = (int)((characterY - map.GetMapTopLoc()) / map.GetSize());
 }
 
 void Character::Draw(Graphics& gfx)
 {
-	gfx.DrawRectangle(characterX, characterY, width, height, Color(1.0f, 1.0f, 0.0f));
+	gfx.DrawRectangle(characterLeft, characterTop, width, height, Color(1.0f, 1.0f, 0.0f));
+
 }
 
 void Character::Update(float dt, Keyboard& kbd)
 {
+
 	velX = 0.0f;
 	velY = 0.0f;
 	if (kbd.KeyIsPressed(VK_LEFT))
@@ -37,8 +42,24 @@ void Character::Update(float dt, Keyboard& kbd)
 	{
 		velY = 1.0f;
 	}
-	velX *= 300.0f;
-	velY *= 300.0f;
-	characterX += velX * dt;
-	characterY += velY * dt;
+	velX *= 150.0f;
+	velY *= 150.0f;
+
+	newCharacterX = characterX + velX * dt;
+	newCharacterY = characterY + velY * dt;
+
+	bool isValid = false;
+
+	isValid = map.CheckForValidMovement((int)((newCharacterX - map.GetMapLeftLoc()) / map.GetSize()), 
+		(int)((newCharacterY - map.GetMapTopLoc()) / map.GetSize()));
+
+	if (isValid)
+	{
+		characterX = newCharacterX;
+		characterY = newCharacterY;
+		characterLeft = characterX - 0.5f * width;
+		characterTop = characterY - height;
+
+	}
+
 }
