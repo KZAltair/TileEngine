@@ -6,7 +6,8 @@ Game::Game(Window& wnd)
 	:
 	wnd(wnd),
 	gfx(wnd),
-	map(0.0f, 0.0f, 50.0f)
+	map(0.0f, 0.0f, 50.0f),
+	p(150.0f, 150.0f, map)
 {
 	//Windows scheduler function for waking up thread
 	SleepingIsGranular = (timeBeginPeriod(1) == TIMERR_NOERROR);
@@ -46,30 +47,7 @@ void Game::Go()
 
 void Game::UpdateModel(float dt)
 {
-	//Do update logic here
-	
-	x = 0.0f;
-	y = 0.0f;
-	if (wnd.kbd.KeyIsPressed(VK_LEFT))
-	{
-		x = -1.0f;
-	}
-	if (wnd.kbd.KeyIsPressed(VK_RIGHT))
-	{
-		x = 1.0f;
-	}
-	if (wnd.kbd.KeyIsPressed(VK_UP))
-	{
-		y = -1.0f;
-	}
-	if (wnd.kbd.KeyIsPressed(VK_DOWN))
-	{
-		y = 1.0f;
-	}
-	x *= 300.0f;
-	y *= 300.0f;
-	PosX += x * dt;
-	PosY += y * dt;
+	p.Update(dt, wnd.kbd);
 
 }
 
@@ -77,6 +55,6 @@ void Game::ComposeFrame()
 {
 	//Do the drawing stuff here
 	map.Draw(gfx);
-	gfx.DrawRectangle(PosX, PosY, 50.0f, 50.0f, Color(1.0f, 1.0f, 0.0f));
+	p.Draw(gfx);
 	
 }

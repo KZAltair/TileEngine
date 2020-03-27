@@ -2,6 +2,7 @@
 #include "Graphics.h"
 #include "Timer.h"
 #include "Tilemap.h"
+#include "Character.h"
 
 class Game
 {
@@ -17,16 +18,18 @@ private:
 	/*  User Functions              */
 	/********************************/
 private:
+	/********************************/
+	/*  System Variables              */
+	/********************************/
 	Window& wnd;
 	Graphics gfx;
 	Timer ft;
+	bool SleepingIsGranular;
 	/********************************/
 	/*  User Variables              */
 	/********************************/
 	TileMap map;
-	float x;
-	float y;
-	float PosX;
-	float PosY;
-	bool SleepingIsGranular;
+	Character p;
+
+
 };

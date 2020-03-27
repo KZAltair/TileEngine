@@ -7,6 +7,7 @@ class TileMap
 public:
 	TileMap(float left, float top, float TileSize);
 	void Draw(Graphics& gfx);
+	float GetSize() const;
 
 private:
 	float TileSize;

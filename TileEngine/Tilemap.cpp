@@ -44,3 +44,8 @@ void TileMap::Draw(Graphics& gfx)
 		}
 	}
 }
+
+float TileMap::GetSize() const
+{
+	return TileSize;
+}
