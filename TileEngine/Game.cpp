@@ -11,16 +11,34 @@ Game::Game(Window& wnd)
 
 void Game::Go()
 {
+	//Update of the monitor 60Hz
+	//Game update at software rendering is 30
+	int numUpdateCalls = 0;
+	float elapsedTime = ft.Mark();
+
 	gfx.BeginFrame();
-	UpdateModel();
+	while (elapsedTime > 0.0f)
+	{
+		//Updates are done by no more than 2,5 ms
+		const float dt = std::min(0.00125f, elapsedTime);
+		UpdateModel(dt);
+		elapsedTime -= dt;
+		numUpdateCalls++;
+	}
 	ComposeFrame();
 	gfx.EndFrame();
+
+	//Enable for debugging purpose to view framerate
+	/*
+	OutputDebugStringA(std::to_string(numUpdateCalls).c_str());
+	OutputDebugStringA("\n");
+	*/
 }
 
-void Game::UpdateModel()
+void Game::UpdateModel(float dt)
 {
 	//Do update logic here
-	const float dt = ft.Mark();
+	
 	x = 0.0f;
 	y = 0.0f;
 	if (wnd.kbd.KeyIsPressed(VK_LEFT))
@@ -39,8 +57,8 @@ void Game::UpdateModel()
 	{
 		y = 1.0f;
 	}
-	x *= 50.0f;
-	y *= 50.0f;
+	x *= 300.0f;
+	y *= 300.0f;
 	PosX += x * dt;
 	PosY += y * dt;
 
