@@ -11,8 +11,6 @@ Character::Character(float x, float y, const TileMap& map)
 	height = map.GetSize();
 	characterLeft = characterX - 0.5f * width;
 	characterTop = characterY - height;
-	characterTileX = (int)((characterX - map.GetMapLeftLoc()) / map.GetSize());
-	characterTileY = (int)((characterY - map.GetMapTopLoc()) / map.GetSize());
 }
 
 void Character::Draw(Graphics& gfx)
@@ -55,8 +53,10 @@ void Character::Update(float dt, Keyboard& kbd)
 		map.CheckForValidMovement((int)(((newCharacterX + 0.5f * width) - map.GetMapLeftLoc()) / map.GetSize()),
 		(int)((newCharacterY - map.GetMapTopLoc()) / map.GetSize())))
 	{
+		//Move actual x and y of the character
 		characterX = newCharacterX;
 		characterY = newCharacterY;
+		//Construct rect around player from selected bottom center to draw from this coordinates
 		characterLeft = characterX - 0.5f * width;
 		characterTop = characterY - height;
 

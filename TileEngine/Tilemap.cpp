@@ -68,7 +68,8 @@ TileMap::TileMap(float left, float top, float TileSize)
 		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1}
 	};
 
-	
+	TileArraySizeY = (int)tiles00.size();
+	TileArraySizeX = (int)tiles00[0].size();
 }
 
 void TileMap::Draw(Graphics& gfx)
@@ -78,8 +79,7 @@ void TileMap::Draw(Graphics& gfx)
 	{
 		for (int Column = 0; (unsigned int)Column < tiles00[Row].size(); ++Column)
 		{
-			TileArraySizeY = (int)tiles00.size();
-			TileArraySizeX = (int)tiles00[Row].size();
+
 			int TileID = tiles00[Row][Column];
 			float tileColor = 1.0f;
 			if (TileID == 1)
@@ -113,7 +113,7 @@ float TileMap::GetMapTopLoc() const
 bool TileMap::CheckForValidMovement(int tileX, int tileY) const
 {
 	bool isValid = false;
-	if ((tileX >= 0) && (tileX < 16/*TileArraySizeX*/) && (tileY >= 0) && (tileY < 12 /*TileArraySizeY*/))
+	if ((tileX >= 0) && (tileX < TileArraySizeX) && (tileY >= 0) && (tileY < TileArraySizeY))
 	{
 		int TileMapValue = tiles00[tileY][tileX];
 		if (TileMapValue == 0)
