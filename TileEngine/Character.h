@@ -5,7 +5,7 @@
 class Character
 {
 public:
-	Character(float x, float y, const TileMap& map);
+	Character(float x, float y, TileMap* map);
 	void Draw(Graphics& gfx);
 	void Update(float dt, Keyboard& kbd);
 
@@ -22,5 +22,5 @@ private:
 	float velY = 0.0f;
 	float width;
 	float height;
-	TileMap map;
+	TileMap* map;
 };

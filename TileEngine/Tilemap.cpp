@@ -1,27 +1,11 @@
 #include "Tilemap.h"
 
-TileMap::TileMap(float left, float top, float TileSize)
-	:
-	UpperLeft(left),
-	UpperTop(top),
-	TileSize(TileSize)
+TileMap::TileMap(float x, float y, float TileWidth, float TileHeight)
 {
+
 	//TODO: Make reading from file or custom defined place
 	//Movement based on Y and X in the array access!!!
-	tiles00 = {
-		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-		{1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 1, 0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1},
-		{1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1}
-	};
+
 
 	tiles10 = {
 		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
@@ -68,59 +52,64 @@ TileMap::TileMap(float left, float top, float TileSize)
 		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1}
 	};
 
-	TileArraySizeY = (int)tiles00.size();
-	TileArraySizeX = (int)tiles00[0].size();
+	//Init tile maps here
+	mapTile.CountX = 16;
+	mapTile.CountY = 12;
+	mapTile.TileHeight = TileHeight;
+	mapTile.TileWidth = TileWidth;
+	mapTile.UpperLeftX = x;
+	mapTile.UpperLeftY = y;
+	mapTile.Tiles = (int*)tiles11.data();
 }
 
 void TileMap::Draw(Graphics& gfx)
 {
 	
-	for (int Row = 0; (unsigned int)Row < tiles00.size(); ++Row)
+	for (int Row = 0; Row < mapTile.CountY; ++Row)
 	{
-		for (int Column = 0; (unsigned int)Column < tiles00[Row].size(); ++Column)
+		for (int Column = 0; Column < mapTile.CountX; ++Column)
 		{
 
-			int TileID = tiles00[Row][Column];
+			int TileID = GetTileValueUnchecked(&mapTile, Column, Row);
 			float tileColor = 1.0f;
 			if (TileID == 1)
 			{
 				tileColor = 0.5f;
 			}
-			gfx.DrawRectangle(UpperLeft + (float)(Column * TileSize),
-				UpperTop + (float)(Row * TileSize),
-				TileSize,
-				TileSize,
+
+			float MinX = mapTile.UpperLeftX + ((float)Column) * mapTile.TileWidth;
+			float MinY = mapTile.UpperLeftY + ((float)Row) * mapTile.TileHeight;
+			float MaxX = MinX + mapTile.TileWidth;
+			float MaxY = MinY + mapTile.TileHeight;
+			gfx.DrawRectangle(MinX, MinY, MaxX, MaxY,
 				Color(tileColor, tileColor, tileColor));
 		}
 	}
 }
 
-float TileMap::GetSize() const
+
+int TileMap::GetTileValueUnchecked(tile_map* TileMap, int TileX, int TileY) const
 {
-	return TileSize;
+	int TileMapValue = TileMap->Tiles[TileY * TileMap->CountX + TileX];
+	return TileMapValue;
 }
 
-float TileMap::GetMapLeftLoc() const
+bool TileMap::IsTileMapPointEmpty(tile_map* TileMap, int TestX, int TestY) const
 {
-	return UpperLeft;
-}
+	bool Empty = false;
 
-float TileMap::GetMapTopLoc() const
-{
-	return UpperTop;
-}
-
-bool TileMap::CheckForValidMovement(int tileX, int tileY) const
-{
-	bool isValid = false;
-	if ((tileX >= 0) && (tileX < TileArraySizeX) && (tileY >= 0) && (tileY < TileArraySizeY))
+	int PlayerTileX = (int)((TestX - TileMap->UpperLeftX) / TileMap->TileWidth);
+	int PlayerTileY = (int)((TestY - TileMap->UpperLeftY) / TileMap->TileHeight);
+	if ((PlayerTileX >= 0) && (PlayerTileX < TileMap->CountX) && (PlayerTileY >= 0) && (PlayerTileY < TileMap->CountY))
 	{
-		int TileMapValue = tiles00[tileY][tileX];
-		if (TileMapValue == 0)
-		{
-			isValid = true;
-		}
+		int TileMapValue = GetTileValueUnchecked(TileMap, PlayerTileX, PlayerTileY);
+		Empty = (TileMapValue == 0);
 		
 	}
-	return isValid;
+	return Empty;
+}
+
+tile_map TileMap::GetTileMap() const
+{
+	return mapTile;
 }
