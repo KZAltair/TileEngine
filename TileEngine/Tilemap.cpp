@@ -124,8 +124,3 @@ bool TileMap::CheckForValidMovement(int tileX, int tileY) const
 	}
 	return isValid;
 }
-
-bool TileMap::isWorldPointEmpty(world* world, int tileMapX, int tileMapY, int testX, int testY) const
-{
-	return false;
-}

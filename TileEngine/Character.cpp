@@ -48,12 +48,12 @@ void Character::Update(float dt, Keyboard& kbd)
 	newCharacterX = characterX + velX * dt;
 	newCharacterY = characterY + velY * dt;
 
-	bool isValid = false;
-
-	isValid = map.CheckForValidMovement((int)((newCharacterX - map.GetMapLeftLoc()) / map.GetSize()), 
-		(int)((newCharacterY - map.GetMapTopLoc()) / map.GetSize()));
-
-	if (isValid)
+	if (map.CheckForValidMovement((int)((newCharacterX - map.GetMapLeftLoc()) / map.GetSize()),
+		(int)((newCharacterY - map.GetMapTopLoc()) / map.GetSize())) &&
+		map.CheckForValidMovement((int)(((newCharacterX -0.5f *width) - map.GetMapLeftLoc()) / map.GetSize()),
+		(int)((newCharacterY - map.GetMapTopLoc()) / map.GetSize())) &&
+		map.CheckForValidMovement((int)(((newCharacterX + 0.5f * width) - map.GetMapLeftLoc()) / map.GetSize()),
+		(int)((newCharacterY - map.GetMapTopLoc()) / map.GetSize())))
 	{
 		characterX = newCharacterX;
 		characterY = newCharacterY;

@@ -4,11 +4,6 @@
 
 class TileMap
 {
-private:
-	struct world
-	{
-
-	};
 public:
 	TileMap(float left, float top, float TileSize);
 	void Draw(Graphics& gfx);
@@ -16,9 +11,6 @@ public:
 	float GetMapLeftLoc() const;
 	float GetMapTopLoc() const;
 	bool CheckForValidMovement(int tileX, int tileY) const;
-
-	//For testing and further refactoring
-	bool isWorldPointEmpty(world* world, int tileMapX, int tileMapY, int testX, int testY) const;
 
 private:
 	float TileSize;
